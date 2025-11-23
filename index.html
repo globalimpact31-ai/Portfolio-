@@ -1,36 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" class="antialiased">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PALAKA BALAVARDHANARAJU | Creative Developer</title>
+    <title>PALAKA BALAVARDHANARAJU | Mechanical Engineer</title>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
+                        sans: ['Rajdhani', 'sans-serif'],
+                        display: ['Orbitron', 'sans-serif'],
                     },
                     colors: {
-                        dark: '#0a0a0a',
-                        light: '#ffffff',
-                        accent: '#6366f1', // Indigo 500
-                        secondary: '#a855f7', // Purple 500
+                        dark: '#0b1120',
+                        steel: '#334155',
+                        cyan: '#06b6d4',
+                        accent: '#3b82f6',
                     },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    animation: {
+                        'spin-slow': 'spin 15s linear infinite',
                     }
                 }
             }
@@ -38,342 +35,363 @@
     </script>
 
     <style>
-        /* Custom Utilities */
-        :root {
-            --cursor-size: 20px;
-            --cursor-hover-size: 60px;
-        }
-
+        /* --- Engineering Aesthetics --- */
         body {
             background-color: #050505;
-            color: #ffffff;
+            color: #e2e8f0;
+            cursor: none; /* Custom cursor enabled */
             overflow-x: hidden;
-            cursor: none; /* Hide default cursor */
+        }
+
+        /* Blueprint Grid Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
         }
 
         /* Custom Cursor */
         #cursor {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: var(--cursor-size);
-            height: var(--cursor-size);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            top: 0; left: 0;
+            width: 20px; height: 20px;
+            border: 2px solid #06b6d4;
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            transition: width 0.3s, height 0.3s, background 0.3s;
             mix-blend-mode: difference;
         }
-
         #cursor-dot {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 4px;
-            background-color: white;
+            top: 0; left: 0;
+            width: 4px; height: 4px;
+            background-color: #06b6d4;
             border-radius: 50%;
             pointer-events: none;
             z-index: 10000;
             transform: translate(-50%, -50%);
         }
-
+        
         body.hovering #cursor {
-            width: var(--cursor-hover-size);
-            height: var(--cursor-hover-size);
-            background-color: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(6, 182, 212, 0.1);
             border-color: transparent;
-            backdrop-filter: blur(2px);
         }
 
-        /* Gradient Blobs */
-        .blob {
-            position: absolute;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.6;
-            animation: float 10s infinite ease-in-out;
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(20px, -20px); }
-        }
-
-        /* Glassmorphism */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
+        /* Glass Cards */
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-        }
-        
-        /* Menu Specific Glass */
-        .menu-glass {
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* Text Stroke */
-        .text-outline {
-            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-            color: transparent;
-            transition: all 0.5s ease;
-        }
-        .text-outline:hover {
-            color: white;
-            -webkit-text-stroke: 1px white;
-        }
-
-        /* Loader */
-        .loader-overlay {
+        /* Tech Loading Screen */
+        .loader {
             position: fixed;
             inset: 0;
             background: #000;
-            z-index: 10001;
+            z-index: 10000;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease;
         }
         
-        /* Timeline Line */
-        .timeline-line {
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, #6366f1, #a855f7, transparent);
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            top: 0;
-            height: 0%; 
-        }
-
-        @media (max-width: 768px) {
-            .timeline-line { left: 20px; }
-        }
-
-        /* Hide Scrollbar but allow scroll */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #050505;
-        }
-        ::-webkit-scrollbar-thumb {
+        .loader-bar {
+            width: 200px;
+            height: 2px;
             background: #333;
-            border-radius: 4px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+        .loader-progress {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 0%;
+            background: #06b6d4;
+            animation: load 1.5s ease-in-out forwards;
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* Neon Glow Text */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
     </style>
 </head>
-<body>
+<body class="bg-grid">
 
-    <!-- Loading Screen -->
-    <div class="loader-overlay">
-        <h1 class="font-display text-4xl md:text-6xl font-bold tracking-tighter overflow-hidden">
-            <span class="loader-text inline-block translate-y-full">LOADING...</span>
-        </h1>
+    <div class="loader" id="loader">
+        <div class="font-display text-2xl tracking-widest text-cyan-400">INITIALIZING SYSTEM</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+        <div class="font-mono text-xs text-gray-500 mt-2">LOADING ASSETS...</div>
     </div>
 
-    <!-- Custom Cursor -->
     <div id="cursor"></div>
     <div id="cursor-dot"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-6 mix-blend-difference text-white">
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 glass border-b border-white/5">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold font-display tracking-tighter hover-trigger">ALEX.DEV</a>
-            <div class="hidden md:flex gap-8 font-light text-sm tracking-widest uppercase">
-                <a href="#about" class="hover-trigger hover:text-accent transition-colors">About</a>
-                <a href="#skills" class="hover-trigger hover:text-accent transition-colors">Skills</a>
-                <a href="#projects" class="hover-trigger hover:text-accent transition-colors">Work</a>
-                <a href="#contact" class="hover-trigger hover:text-accent transition-colors">Contact</a>
+            <a href="#" class="text-xl font-display font-bold tracking-widest text-white hover-trigger">
+                PALAKA<span class="text-cyan-400">.MECH</span>
+            </a>
+            <div class="hidden md:flex gap-8 font-sans font-medium uppercase tracking-wider text-sm text-gray-400">
+                <a href="#home" class="hover:text-cyan-400 transition-colors hover-trigger">Home</a>
+                <a href="#about" class="hover:text-cyan-400 transition-colors hover-trigger">About</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-colors hover-trigger">Skills</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors hover-trigger">Contact</a>
             </div>
-            <button class="md:hidden hover-trigger text-xl"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <!-- Background Blobs -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="blob w-96 h-96 bg-purple-900 rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
-        <div class="blob w-[500px] h-[500px] bg-indigo-900 rounded-full bottom-0 right-0 translate-x-1/3 translate-y-1/3 animation-delay-2000"></div>
-    </div>
+    <section id="home" class="min-h-screen flex items-center justify-center relative px-6 pt-20">
+        <div class="absolute right-0 md:right-20 top-1/2 -translate-y-1/2 opacity-10 pointer-events-none">
+            <i class="fa-solid fa-gear text-[20rem] md:text-[40rem] animate-spin-slow text-cyan-400"></i>
+        </div>
 
-    <main id="smooth-wrapper">
-        <div id="smooth-content">
-
-            <!-- Hero Section -->
-            <section class="min-h-screen flex items-center justify-center relative px-6 pt-20">
-                <div class="max-w-7xl w-full mx-auto grid md:grid-cols-2 gap-12 items-center">
-                    <div class="hero-content z-10">
-                        <p class="text-accent tracking-widest uppercase mb-4 text-sm font-semibold reveal-text">Full Stack Developer</p>
-                        <h1 class="font-display text-6xl md:text-8xl font-bold leading-[0.9] mb-8">
-                            <div class="overflow-hidden"><span class="reveal-text inline-block">Crafting</span></div>
-                            <div class="overflow-hidden"><span class="reveal-text inline-block text-gray-500">Digital</span></div>
-                            <div class="overflow-hidden"><span class="reveal-text inline-block">Experiences</span></div>
-                        </h1>
-                        <p class="text-gray-400 max-w-md mb-8 text-lg reveal-text opacity-0">
-                            I build pixel-perfect, accessible, and performant web experiences using modern technologies.
-                        </p>
-                        <div class="flex gap-4 reveal-text opacity-0">
-                            <a href="#projects" class="hover-trigger px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-accent hover:text-white transition-colors duration-300">View Work</a>
-                            <a href="#contact" class="hover-trigger px-8 py-4 border border-white/20 rounded-full hover:bg-white/10 transition-colors duration-300">Contact Me</a>
-                        </div>
-                    </div>
-
-                    <!-- 3D/Abstract Visual Element -->
-                    <div class="hero-visual relative h-[400px] w-full hidden md:flex items-center justify-center">
-                        <div class="absolute inset-0 bg-gradient-radial from-indigo-500/20 to-transparent blur-3xl"></div>
-                        <!-- Abstract Cards Stack -->
-                        <div class="relative w-64 h-80 perspective-1000">
-                            <div class="hero-card absolute inset-0 bg-gradient-to-br from-gray-800 to-black border border-white/10 rounded-2xl transform rotate-6 translate-x-4 shadow-2xl z-10 flex items-center justify-center">
-                                <i class="fa-brands fa-react text-6xl text-cyan-400 animate-spin-slow"></i>
-                            </div>
-                            <div class="hero-card absolute inset-0 bg-gradient-to-br from-gray-800 to-black border border-white/10 rounded-2xl transform -rotate-6 -translate-x-4 shadow-2xl flex items-center justify-center">
-                                <span class="font-display text-4xl font-bold text-outline">CODE</span>
-                            </div>
-                        </div>
-                    </div>
+        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="hero-content">
+                <div class="inline-block px-3 py-1 border border-cyan-500/30 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono mb-6 reveal">
+                    SYSTEM STATUS: ONLINE
                 </div>
-                
-                <!-- Scroll Indicator -->
-                <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
-                    <span class="text-xs uppercase tracking-widest">Scroll</span>
-                    <i class="fa-solid fa-arrow-down"></i>
+                <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight mb-6 text-white reveal">
+                    PALAKA <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 glow-text">BALAVARDHANARAJU</span>
+                </h1>
+                <h2 class="text-2xl text-gray-300 font-sans font-light mb-8 reveal border-l-2 border-cyan-400 pl-4">
+                    Mechanical Engineer | CAD Designer
+                </h2>
+                <p class="text-gray-400 max-w-md mb-10 text-lg leading-relaxed reveal">
+                    Translating complex concepts into functional designs. Specializing in precision modeling and engineering simulations.
+                </p>
+                <div class="flex gap-4 reveal">
+                    <a href="#contact" class="hover-trigger px-8 py-4 bg-cyan-500 text-black font-bold font-display tracking-wide hover:bg-cyan-400 transition-all duration-300 clip-path-slant">
+                        HIRE ME
+                    </a>
+                    <a href="#skills" class="hover-trigger px-8 py-4 border border-gray-600 text-white font-display tracking-wide hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300">
+                        EXPLORE SKILLS
+                    </a>
                 </div>
-            </section>
+            </div>
+        </div>
 
-            <!-- Floating Cards / About Section -->
-            <section id="about" class="py-32 px-6 relative overflow-hidden">
-                <div class="max-w-7xl mx-auto">
-                    <div class="text-center mb-20">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">About Me</h2>
-                        <div class="h-1 w-20 bg-accent mx-auto rounded-full"></div>
-                    </div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <i class="fa-solid fa-angles-down text-cyan-400 text-xl"></i>
+        </div>
+    </section>
 
-                    <div class="relative min-h-[600px] w-full">
-                        <!-- Central Text -->
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-20 w-full max-w-2xl p-6">
-                            <p class="text-2xl md:text-3xl font-light leading-relaxed text-gray-200">
-                                I'm a passionate developer who bridges the gap between <span class="text-accent font-semibold">design</span> and <span class="text-secondary font-semibold">engineering</span>. I don't just write code; I solve problems with creative solutions.
-                            </p>
-                        </div>
-
-                        <!-- Floating Cards -->
-                        <div class="float-card absolute top-0 left-[10%] w-64 p-6 glass-card z-10 hidden md:block" data-speed="0.5">
-                            <i class="fa-solid fa-wand-magic-sparkles text-3xl text-yellow-400 mb-4"></i>
-                            <h3 class="font-bold text-xl mb-2">Creative UI</h3>
-                            <p class="text-sm text-gray-400">Obsessed with micro-interactions and animations.</p>
-                        </div>
-
-                        <div class="float-card absolute bottom-10 right-[10%] w-64 p-6 glass-card z-10 hidden md:block" data-speed="0.8">
-                            <i class="fa-solid fa-rocket text-3xl text-red-400 mb-4"></i>
-                            <h3 class="font-bold text-xl mb-2">Performance</h3>
-                            <p class="text-sm text-gray-400">Optimizing for the fastest load times and smooth 60fps.</p>
-                        </div>
-
-                        <div class="float-card absolute top-20 right-[20%] w-56 p-6 glass-card z-0 blur-[2px] opacity-70 hidden md:block" data-speed="0.3">
-                            <i class="fa-solid fa-code text-2xl text-blue-400 mb-2"></i>
-                            <h3 class="font-bold text-lg">Clean Code</h3>
-                        </div>
-
-                         <div class="float-card absolute bottom-20 left-[20%] w-56 p-6 glass-card z-0 blur-[2px] opacity-70 hidden md:block" data-speed="0.4">
-                            <i class="fa-solid fa-mobile-screen text-2xl text-green-400 mb-2"></i>
-                            <h3 class="font-bold text-lg">Responsive</h3>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Skills Timeline -->
-            <section id="skills" class="py-32 px-6 bg-black/30 relative">
-                <div class="max-w-5xl mx-auto relative">
-                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-20 text-center">My Journey</h2>
+    <section id="about" class="py-32 px-6 relative border-t border-white/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="font-display text-4xl font-bold mb-6">Engineering <span class="text-cyan-400">Philosophy</span></h2>
+                    <p class="text-gray-400 mb-6 text-lg">
+                        I am a Mechanical Engineer passionate about turning theoretical physics into tangible machinery. My approach combines rigorous analysis with creative problem-solving.
+                    </p>
+                    <p class="text-gray-400 text-lg">
+                        Whether it's designing complex assemblies in <span class="text-white font-bold">Creo</span> or running thermal analysis in <span class="text-white font-bold">Ansys</span>, I focus on efficiency, durability, and manufacturability.
+                    </p>
                     
-                    <!-- The vertical drawing line -->
-                    <div class="timeline-line h-full"></div>
-
-                    <!-- Timeline Item 1 -->
-                    <div class="timeline-item relative flex flex-col md:flex-row items-center mb-24 md:justify-between">
-                        <div class="md:w-5/12 order-2 md:order-1 text-right pr-0 md:pr-10 pl-10 md:pl-0">
-                            <h3 class="text-2xl font-bold text-white mb-2">Frontend Mastery</h3>
-                            <p class="text-gray-400">Mastered React, Vue, and Angular. Deep dive into state management (Redux, Zustand) and modern CSS frameworks like Tailwind.</p>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="p-4 border border-white/10 bg-white/5 rounded">
+                            <h3 class="font-display text-2xl font-bold text-cyan-400">4+</h3>
+                            <p class="text-xs text-gray-500 uppercase">Core Softwares</p>
                         </div>
-                        <div class="absolute left-[20px] md:left-1/2 -translate-x-1/2 w-4 h-4 bg-accent rounded-full border-4 border-black z-10 timeline-dot"></div>
-                        <div class="md:w-5/12 order-3 md:order-2 pl-10 md:pl-10 text-gray-500 font-mono text-sm pt-2 md:pt-0">2023 - Present</div>
-                    </div>
-
-                    <!-- Timeline Item 2 -->
-                    <div class="timeline-item relative flex flex-col md:flex-row items-center mb-24 md:justify-between">
-                        <div class="md:w-5/12 order-2 md:order-1 text-right pr-0 md:pr-10 pl-10 md:pl-0 text-gray-500 font-mono text-sm hidden md:block">
-                            2021 - 2023
+                        <div class="p-4 border border-white/10 bg-white/5 rounded">
+                            <h3 class="font-display text-2xl font-bold text-cyan-400">100%</h3>
+                            <p class="text-xs text-gray-500 uppercase">Precision</p>
                         </div>
-                        <div class="absolute left-[20px] md:left-1/2 -translate-x-1/2 w-4 h-4 bg-secondary rounded-full border-4 border-black z-10 timeline-dot"></div>
-                        <div class="md:w-5/12 order-3 md:order-2 pl-10 md:pl-10">
-                            <h3 class="text-2xl font-bold text-white mb-2">Full Stack Transition</h3>
-                            <p class="text-gray-400">Built robust APIs with Node.js and Express. Implemented database designs with PostgreSQL and MongoDB.</p>
-                            <div class="md:hidden text-gray-500 font-mono text-sm mt-2">2021 - 2023</div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item 3 -->
-                    <div class="timeline-item relative flex flex-col md:flex-row items-center mb-24 md:justify-between">
-                        <div class="md:w-5/12 order-2 md:order-1 text-right pr-0 md:pr-10 pl-10 md:pl-0">
-                            <h3 class="text-2xl font-bold text-white mb-2">The Beginning</h3>
-                            <p class="text-gray-400">Started with HTML, CSS, and Vanilla JavaScript. Created my first responsive websites and fell in love with code.</p>
-                        </div>
-                        <div class="absolute left-[20px] md:left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full border-4 border-black z-10 timeline-dot"></div>
-                        <div class="md:w-5/12 order-3 md:order-2 pl-10 md:pl-10 text-gray-500 font-mono text-sm pt-2 md:pt-0">2019 - 2020</div>
                     </div>
                 </div>
-            </section>
-
-            <!-- Projects Section -->
-            <section id="projects" class="py-32 px-6">
-                <div class="max-w-7xl mx-auto">
-                    <div class="flex justify-between items-end mb-16">
-                        <div>
-                            <h2 class="font-display text-4xl md:text-6xl font-bold">Selected Work</h2>
-                            <p class="text-gray-400 mt-4">Hover to explore</p>
-                        </div>
-                        <a href="#" class="hidden md:block hover-trigger text-accent font-mono border-b border-accent pb-1">View All GitHub</a>
+                <div class="relative h-[400px] bg-gradient-to-tr from-cyan-900/20 to-blue-900/20 rounded-lg border border-white/10 flex items-center justify-center reveal group">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-30"></div>
+                    <i class="fa-solid fa-compass-drafting text-8xl text-white/20 group-hover:text-cyan-400/50 transition-colors duration-500"></i>
+                    
+                    <div class="absolute bottom-6 right-6 glass px-6 py-3 rounded-full">
+                        <span class="text-cyan-400 font-mono text-sm"><i class="fa-solid fa-check mr-2"></i>Verified Engineer</span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="grid md:grid-cols-2 gap-8">
-                        
-                        <!-- Project 1 -->
-                        <div class="project-card group hover-trigger relative">
-                            <!-- 3 DOTS MENU BUTTON -->
-                            <div class="absolute top-4 right-4 z-40">
-                                <button class="menu-btn w-8 h-8 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-accent transition-colors">
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </button>
-                                <!-- MENU DROPDOWN -->
-                                <div class="settings-menu hidden absolute top-10 right-0 w-48 menu-glass rounded-xl overflow-hidden py-2 transform origin-top-right transition-all duration-200">
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors">
-                                        <i class="fa-regular fa-eye mr-2"></i> View Project
-                                    </a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors">
-                                        <i class="fa-solid fa-code mr-2"></i> Source Code
-                                    </a>
-                                    <div class="h-px bg-white/10 my-1"></div>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors">
-                                        <i class="fa-solid fa-gear mr-2"></i> Settings
-                                    </a>
-                                </div>
-                            </div>
+    <section id="skills" class="py-32 px-6 bg-black/30 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Technical <span class="text-cyan-400">Arsenal</span></h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-transparent mx-auto"></div>
+            </div>
 
-                            <div class="relative h-[400px] rounded-2xl overflow-hidden mb-6">
-                                <div class="absolute inset-0 bg-gray-800 z-0">
-                                    <!-- CHANGE IMAGE HERE: Replace src with your image path -->
-                                    <img src="https://images.unsplash.com/photo-1481487484168-9b930d5b7960?q=80&w=2670&auto=format&fit=crop" alt="Project 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-100">
-                                </div>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
-                                <div class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <div class="flex gap-2 mb-3">
-                                        <span class="px-3 p
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="glass p-8 rounded-xl hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-2 reveal hover-trigger group">
+                    <div class="w-14 h-14 bg-blue-900/30 rounded-lg flex items-center justify-center mb-6 text-2xl text-blue-400 group-hover:text-cyan-400 group-hover:scale-110 transition-all">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">CAD Design</h3>
+                    <p class="text-sm text-gray-400 mb-4">Expertise in 2D drafting, 3D modeling, and assembly design standards.</p>
+                    <div class="w-full bg-gray-800 h-1 rounded-full overflow-hidden">
+                        <div class="bg-cyan-400 h-full w-[90%]"></div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-xl hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-2 reveal hover-trigger group" style="transition-delay: 100ms">
+                    <div class="w-14 h-14 bg-purple-900/30 rounded-lg flex items-center justify-center mb-6 text-2xl text-purple-400 group-hover:text-cyan-400 group-hover:scale-110 transition-all">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">CREO Parametric</h3>
+                    <p class="text-sm text-gray-400 mb-4">Advanced surface modeling, sheet metal design, and mechanism simulation.</p>
+                    <div class="w-full bg-gray-800 h-1 rounded-full overflow-hidden">
+                        <div class="bg-cyan-400 h-full w-[85%]"></div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-xl hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-2 reveal hover-trigger group" style="transition-delay: 200ms">
+                    <div class="w-14 h-14 bg-yellow-900/30 rounded-lg flex items-center justify-center mb-6 text-2xl text-yellow-400 group-hover:text-cyan-400 group-hover:scale-110 transition-all">
+                        <i class="fa-solid fa-temperature-high"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">ANSYS</h3>
+                    <p class="text-sm text-gray-400 mb-4">Finite Element Analysis (FEA), Structural analysis, and Thermal simulations.</p>
+                    <div class="w-full bg-gray-800 h-1 rounded-full overflow-hidden">
+                        <div class="bg-cyan-400 h-full w-[80%]"></div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-xl hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-2 reveal hover-trigger group" style="transition-delay: 300ms">
+                    <div class="w-14 h-14 bg-red-900/30 rounded-lg flex items-center justify-center mb-6 text-2xl text-red-400 group-hover:text-cyan-400 group-hover:scale-110 transition-all">
+                        <i class="fa-solid fa-square-root-variable"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">MATLAB</h3>
+                    <p class="text-sm text-gray-400 mb-4">Mathematical modeling, algorithm development, and data analysis.</p>
+                    <div class="w-full bg-gray-800 h-1 rounded-full overflow-hidden">
+                        <div class="bg-cyan-400 h-full w-[75%]"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-display text-4xl font-bold mb-12 text-center reveal">Project Highlights</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="relative group overflow-hidden rounded-2xl border border-white/10 reveal hover-trigger">
+                    <div class="h-64 bg-gray-800 relative">
+                        <img src="https://images.unsplash.com/photo-1537462713117-1a6244990976?q=80&w=2000&auto=format&fit=crop" alt="Project 1" class="w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 p-8 w-full">
+                        <h3 class="text-2xl font-bold font-display mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Mechanical Gearbox Assembly</h3>
+                        <p class="text-cyan-400 text-sm font-mono opacity-0 group-hover:opacity-100 transition-opacity delay-100">Designed in CREO • Analyzed in ANSYS</p>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-2xl border border-white/10 reveal hover-trigger">
+                    <div class="h-64 bg-gray-800 relative">
+                        <img src="https://images.unsplash.com/photo-1581094794320-c917731e668a?q=80&w=2000&auto=format&fit=crop" alt="Project 2" class="w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 p-8 w-full">
+                        <h3 class="text-2xl font-bold font-display mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Thermodynamic Simulation</h3>
+                        <p class="text-cyan-400 text-sm font-mono opacity-0 group-hover:opacity-100 transition-opacity delay-100">MATLAB Modelling • Heat Transfer Analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-6 bg-gradient-to-b from-transparent to-cyan-900/10">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <h2 class="font-display text-5xl font-bold mb-6">Let's Engineer the Future</h2>
+            <p class="text-gray-400 mb-10">Ready to collaborate on design and analysis projects?</p>
+            <a href="mailto:contact@example.com" class="hover-trigger inline-block px-10 py-5 bg-white text-black font-bold font-display rounded-full hover:bg-cyan-400 transition-colors duration-300">
+                GET IN TOUCH
+            </a>
+            
+            <footer class="mt-20 pt-10 border-t border-white/5 text-sm text-gray-600 font-mono flex justify-between items-center">
+                <p>© 2023 Palaka Balavardhanaraju</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <script>
+        // --- Loading Screen Logic ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            // Wait 1.5 seconds then fade out
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    // Trigger initial animations
+                    initScrollAnimations();
+                }, 800);
+            }, 1500);
+        });
+
+        // --- Custom Cursor Logic ---
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        const hoverTriggers = document.querySelectorAll('.hover-trigger');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        hoverTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            trigger.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // --- Scroll Reveal Animation ---
+        function initScrollAnimations() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(el => observer.observe(el));
+        }
+        
+        // Run initially in case content is already visible
+        initScrollAnimations();
+    </script>
+</body>
+</html>
